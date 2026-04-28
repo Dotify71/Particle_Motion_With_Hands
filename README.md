@@ -1,41 +1,55 @@
-# Gesture Controlled Particles 
+# Welcome to Particle Lab!
 
-This project is a fun experiment where you can control a 3D particle system using your hand gestures. It combines Three.js for rendering and MediaPipe for hand tracking to create an interactive visual experience directly in the browser.
+Particle Lab is a fun web experiment where you can play around with floating 3D particles using just your webcam and microphone. You don't need a controller or a keyboard to interact with it—you just use your hands and your voice!
 
-## What it does
+## What can you do with it?
 
-1. Displays millions of particles forming different shapes (heart, galaxy, DNA, etc.)
-2. Lets you change shapes using buttons
-3. Allows color customization
-4. Uses your webcam to detect hand gestures:
-  a. Open hand → particles expand
-  b. Closed hand → particles contract
+1. **Hand Tracking:** We use your webcam to track your hands. 
+    **Left Hand:** Open and close your hand to spread the particles out or bring them closer together.
+    **Right Hand:** Move your wrist around to gently spin the whole scene.
+    **Both Hands:** Pinch with both hands at the same time to reset the camera zoom.
+2. **Voice Commands:** Turn on your mic and try talking to it! You can say things like "galaxy", "red", "more particles", or "zoom in" to change how things look without clicking a button.
+3. **Audio Reactivity:** Turn this on and the particles will actually "listen" and react to the sounds around you, pulsing along to background music or noise.
+4. **A bunch of shapes:** You can arrange the particles into all kinds of cool shapes—like a heart, a flower, a wave, or a floating donut.
 
-## Tech used
+## How to try it out on your computer
 
-1. Three.js (for 3D rendering)
-2. MediaPipe Hands (for gesture tracking)
-3. HTML, CSS, JavaScript
+Because this project needs to access your webcam and microphone to work, it has to run on a secure server. Don't worry, it's easy to spin one up locally on your computer!
 
-## How to run
+**Step 1:** Open your terminal in this project folder.
 
-1. Download or clone this project
-2. Open the folder in VS Code
-3. Run it using Live Server (recommended)  
-   or just open `index.html` in your browser
+**Step 2:** Start a quick local server. If you have Python installed, you can just run this command:
+```bash
+python3 -m http.server 3000
+```
+*(If you prefer Node.js, `npx serve` works perfectly too!)*
 
-## Make sure to allow camera access, otherwise gesture control won’t work.
+**Step 3:** Open up your web browser and go to `http://localhost:3000`.
 
-## Notes
+**Step 4:** The browser will ask for permission to use your camera and microphone. Click **Allow** so the app can see your hands and hear your voice commands.
 
-1. The particle count is very high (3 million), so performance depends on your system
-2. Works best on laptops/desktops with good GPU support
-3. If it lags, try reducing `PARTICLE_COUNT` in the code
+*Pro tip: For the voice commands to work best, we highly recommend using Google Chrome or Microsoft Edge!*
 
-## Why I built this
+## Controls & Shortcuts
 
-I wanted to try something beyond basic UI projects and experiment with graphics + real-time interaction. This project helped me understand how math, rendering, and computer vision can work together.
+If you prefer to click or use your keyboard, here are some handy shortcuts:
+*   `Tab`: Hide or show the settings menu.
+*   `P`: Take a quick screenshot.
+*   `O`: Turn on mouse/touch drag controls so you can click and spin the camera.
+*   `V`: Turn Voice Commands on or off.
+*   `Scroll Wheel`: Zoom in and out.
 
-Just a small creative project, but pretty cool to play with 🙂
+And here are some examples of **voice commands** you can try when the mic is listening:
+*   **Shapes:** "galaxy", "heart", "dna", "cube", "wave", "donut", "bottle"
+*   **Colors:** "pink", "rainbow", "cyan", "gold", "white"
+*   **Movement:** "pause", "slow", "fast", "hyper"
+*   **Tweaks:** "more particles", "less particles", "zoom in", "explode", "reset"
+
+## What's powering this?
+If you're curious about the code under the hood, here is what makes it work:
+*   Standard HTML, CSS, and JavaScript.
+*   **Three.js** draws all the 3D particles and handles the graphics.
+*   **MediaPipe** is the machine learning magic that tracks your hand movements.
+*   Built-in browser features (Web Speech API & Web Audio API) handle the voice and sound effects.
 
 *** Build with ❤️ for Hackclub, by Dushyant Acharya ***
