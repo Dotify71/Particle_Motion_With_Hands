@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gesture Controlled Particles - Extended</title>
+    <title>Particle Lab — Gesture Controlled</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
@@ -11,32 +11,172 @@
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div id="ui-container">
-        <h2>Particle Control</h2>
-        <div class="control-group">
-            <label>Shape Template</label>
-            <div class="btn-grid">
-                <button onclick="setShape('heart')" class="active" id="btn-heart">Heart</button>
-                <button onclick="setShape('flower')" id="btn-flower">Flower</button>
-                <button onclick="setShape('saturn')" id="btn-saturn">Saturn</button>
-                <button onclick="setShape('fireworks')" id="btn-fireworks">Fireworks</button>
-                <button onclick="setShape('pyramid')" id="btn-fireworks">Pyramid</button>
-                <button onclick="setShape('dna')" id="btn-dna">DNA</button>
-                <button onclick="setShape('torus')" id="btn-torus">Donut</button>
-                <button onclick="setShape('galaxy')" id="btn-galaxy">Galaxy</button>
-            </div>
-        </div>
-        <div class="control-group">
-            <label>Particle Color</label>
-            <input type="color" id="colorPicker" value="#ff0055">
-        </div>
-        <div id="status">Waiting for camera...</div>
-        <div style="font-size: 0.7rem; margin-top: 5px; opacity: 0.6;">
-            Open Hand: Expand<br>
-            Close Hand: Contract
+
+<div id="ui">
+    <div class="panel-header">
+        <div class="panel-title">Particle Lab</div>
+        <button class="icon-btn" onclick="togglePanel()" title="Tab">⊟</button>
+    </div>
+
+    <div class="section-label">Shape <span class="kbd">h f s e d t g y b w m c k r l n</span></div>
+    <div class="shape-grid">
+        <button class="shape-btn active" id="btn-heart"     onclick="setShape('heart')">     <span class="icon">♥</span>Heart</button>
+        <button class="shape-btn"        id="btn-flower"    onclick="setShape('flower')">    <span class="icon">✿</span>Flower</button>
+        <button class="shape-btn"        id="btn-saturn"    onclick="setShape('saturn')">    <span class="icon">🪐</span>Saturn</button>
+        <button class="shape-btn"        id="btn-fireworks" onclick="setShape('fireworks')"> <span class="icon">✦</span>Spark</button>
+        <button class="shape-btn"        id="btn-dna"       onclick="setShape('dna')">       <span class="icon">⌬</span>DNA</button>
+        <button class="shape-btn"        id="btn-torus"     onclick="setShape('torus')">     <span class="icon">◎</span>Torus</button>
+        <button class="shape-btn"        id="btn-galaxy"    onclick="setShape('galaxy')">    <span class="icon">⊛</span>Galaxy</button>
+        <button class="shape-btn"        id="btn-pyramid"   onclick="setShape('pyramid')">   <span class="icon">△</span>Pyramid</button>
+        <button class="shape-btn"        id="btn-sphere"    onclick="setShape('sphere')">    <span class="icon">●</span>Sphere</button>
+        <button class="shape-btn"        id="btn-wave"      onclick="setShape('wave')">      <span class="icon">∿</span>Wave</button>
+        <button class="shape-btn"        id="btn-mobius"    onclick="setShape('mobius')">    <span class="icon">∞</span>Möbius</button>
+        <button class="shape-btn"        id="btn-cube"      onclick="setShape('cube')">      <span class="icon">⬛</span>Cube</button>
+        <button class="shape-btn"        id="btn-knot"      onclick="setShape('knot')">      <span class="icon">⍉</span>Knot</button>
+        <button class="shape-btn"        id="btn-spring"    onclick="setShape('spring')">    <span class="icon">🌀</span>Spring</button>
+        <button class="shape-btn"        id="btn-klein"     onclick="setShape('klein')">     <span class="icon">⌀</span>Klein</button>
+        <button class="shape-btn"        id="btn-nebula"    onclick="setShape('nebula')">    <span class="icon">☁</span>Nebula</button>
+    </div>
+
+    <div class="section-label">Color</div>
+    <div class="color-row">
+        <input type="color" id="colorPicker" value="#ff0055">
+        <div class="color-presets">
+            <div class="preset-dot active" style="background:#ff0055" data-color="#ff0055" onclick="applyPreset(this)"></div>
+            <div class="preset-dot" style="background:#00ffcc" data-color="#00ffcc" onclick="applyPreset(this)"></div>
+            <div class="preset-dot" style="background:#7744ff" data-color="#7744ff" onclick="applyPreset(this)"></div>
+            <div class="preset-dot" style="background:#ffaa00" data-color="#ffaa00" onclick="applyPreset(this)"></div>
+            <div class="preset-dot" style="background:#00aaff" data-color="#00aaff" onclick="applyPreset(this)"></div>
+            <div class="preset-dot" style="background:#ff6600" data-color="#ff6600" onclick="applyPreset(this)"></div>
+            <div class="preset-dot" style="background:#ffffff" data-color="#ffffff" onclick="applyPreset(this)"></div>
+            <div class="preset-dot rainbow-dot" data-color="rainbow" onclick="applyPreset(this)" title="Rainbow"></div>
         </div>
     </div>
-    <video id="input_video"></video>
-    <script src="script.js"></script>
+
+    <div class="section-label">Particle Count</div>
+    <div class="slider-row">
+        <input type="range" id="densitySlider" min="1" max="10" value="4" step="1">
+        <span class="slider-val" id="densityVal">100K</span>
+    </div>
+    <div class="number-row">
+        <input type="number" id="particleInput" value="100000" min="1000" max="3000000" step="1000" placeholder="Custom…">
+        <button class="apply-btn" onclick="applyCustomCount()">Apply</button>
+    </div>
+
+    <div class="section-label">Particle Size</div>
+    <div class="slider-row">
+        <input type="range" id="sizeSlider" min="1" max="20" value="7" step="1">
+        <span class="slider-val" id="sizeVal">0.07</span>
+    </div>
+
+    <div class="section-label">Rotation Speed</div>
+    <div class="speed-row">
+        <button class="speed-btn"        onclick="setSpeed(0,     this)">Pause</button>
+        <button class="speed-btn active" onclick="setSpeed(0.005, this)">Slow</button>
+        <button class="speed-btn"        onclick="setSpeed(0.02,  this)">Fast</button>
+        <button class="speed-btn"        onclick="setSpeed(0.06,  this)">Hyper</button>
+    </div>
+
+    <div class="section-label">Transition Speed</div>
+    <div class="speed-row">
+        <button class="speed-btn active" onclick="setTransition(0.05, this)">Flow</button>
+        <button class="speed-btn"        onclick="setTransition(0.15, this)">Med</button>
+        <button class="speed-btn"        onclick="setTransition(0.40, this)">Snap</button>
+    </div>
+
+    <div class="section-label">Fog Density</div>
+    <div class="slider-row">
+        <input type="range" id="fogSlider" min="0" max="40" value="18" step="1">
+        <span class="slider-val" id="fogVal">0.018</span>
+    </div>
+
+    <div class="section-label">Background</div>
+    <div class="speed-row">
+        <button class="speed-btn active" onclick="setBg('dark',   this)">Dark</button>
+        <button class="speed-btn"        onclick="setBg('nebula', this)">Nebula</button>
+        <button class="speed-btn"        onclick="setBg('stars',  this)">Stars</button>
+    </div>
+
+    <div class="section-label">Audio React</div>
+    <div class="speed-row">
+        <button class="speed-btn" id="audioBtn" onclick="toggleAudio()">🎙 Enable Mic</button>
+        <span class="slider-val" id="audioLevel" style="min-width:38px;text-align:center">—</span>
+    </div>
+
+    <div class="section-label">Effects</div>
+    <div class="speed-row">
+        <button class="speed-btn" id="trailBtn" onclick="toggleTrail()">Trails OFF</button>
+        <button class="speed-btn" id="orbitBtn" onclick="toggleOrbit()">Orbit OFF</button>
+    </div>
+
+    <div class="section-label">Voice Commands <span class="kbd">V</span></div>
+    <div class="speed-row">
+        <button class="speed-btn" id="voiceBtn" onclick="toggleVoice()">🎤 Voice OFF</button>
+    </div>
+    <div id="voice-log" style="margin-top:6px;font-size:0.50rem;color:rgba(255,255,255,0.35);
+         line-height:1.8;min-height:20px;font-family:'Space Mono',monospace;"></div>
+    <div class="number-row" style="margin-top:6px;">
+        <input type="text" id="textCmd" placeholder="type command…"
+            style="flex:1;background:rgba(0,0,0,0.4);border:1px solid var(--border);
+                   color:var(--text);font-family:'Space Mono',monospace;font-size:0.60rem;
+                   padding:5px 8px;border-radius:6px;outline:none;"
+            onkeydown="if(event.key==='Enter'){processVoiceCommand(this.value);this.value='';}">
+        <button class="apply-btn" onclick="processVoiceCommand(document.getElementById('textCmd').value);document.getElementById('textCmd').value=''">Go</button>
+    </div>
+
+    <div class="section-label">Export</div>
+    <button class="full-btn" onclick="takeScreenshot()">📷 Save PNG</button>
+
+    <div id="status-bar">
+        <div id="status-dot"></div>
+        <div id="status-text">Waiting for camera…</div>
+    </div>
+
+    <div class="two-hand-legend">
+        <div class="thl-row"><span class="thl-tag L">L</span> Open/Close → Expand/Contract</div>
+        <div class="thl-row"><span class="thl-tag R">R</span> Move wrist → Rotate scene</div>
+        <div class="thl-row"><span class="thl-tag LR">LR</span> Both pinch → Reset zoom</div>
+    </div>
+
+    <div class="hint">
+        <span>Tab</span> panel &nbsp;|&nbsp; <span>P</span> screenshot &nbsp;|&nbsp; <span>O</span> orbit &nbsp;|&nbsp; <span>Scroll</span> zoom
+    </div>
+</div>
+
+<div id="hand-viewer">
+    <div class="hv-header">
+        <span class="hv-title">✋ Hand Tracking</span>
+        <div class="hv-indicators">
+            <span class="hv-dot" id="hv-L">L</span>
+            <span class="hv-dot" id="hv-R">R</span>
+        </div>
+    </div>
+    <canvas id="handCanvas"></canvas>
+    <div class="hv-footer">
+        <span id="hv-info-L">Left: —</span>
+        <span id="hv-info-R">Right: —</span>
+    </div>
+</div>
+
+<div id="hand-bar-wrap">
+    <div class="bar-label">Expand</div>
+    <div id="hand-bar-track"><div id="hand-bar-fill"></div></div>
+    <div class="bar-label" id="hand-pct">—</div>
+</div>
+
+<div id="stats">
+    <div id="stat-fps">FPS: --</div>
+    <div id="stat-particles">Particles: 100K</div>
+    <div id="stat-shape">Shape: heart</div>
+</div>
+
+<div id="audio-bar-wrap" style="display:none">
+    <div id="audio-bar-fill"></div>
+</div>
+
+<video id="input_video"></video>
+<canvas id="bgCanvas"></canvas>
+
+<script src="script.js"></script>
 </body>
 </html>
