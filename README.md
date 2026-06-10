@@ -51,5 +51,3 @@ If you're curious about the code under the hood, here is what makes it work:
 *   **Three.js** draws all the 3D particles and handles the graphics.
 *   **MediaPipe** is the machine learning magic that tracks your hand movements.
 *   Built-in browser features (Web Speech API & Web Audio API) handle the voice and sound effects.
-
-*** Build with ❤️ for Hackclub, by Dushyant Acharya ***
