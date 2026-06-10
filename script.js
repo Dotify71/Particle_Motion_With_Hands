@@ -2,26 +2,26 @@
 const DENSITY_LEVELS = [10000,30000,60000,100000,200000,400000,600000,900000,1500000,3000000];
 const DENSITY_LABELS = ['10K','30K','60K','100K','200K','400K','600K','900K','1.5M','3M'];
 
-let PARTICLE_COUNT      = 100000;
-let particleSize        = 0.07;
-let rotationSpeed       = 0.005;
-let lerpFactor          = 0.05;
-let trailEnabled        = false;
-let orbitEnabled        = false;
-let audioEnabled        = false;
-let rainbowMode         = false;
-let panelVisible        = true;
-let currentShape        = 'heart';
-let currentBg           = 'dark';
+let PARTICLE_COUNT = 100000;
+let particleSize = 0.07;
+let rotationSpeed = 0.005;
+let lerpFactor = 0.05;
+let trailEnabled = false;
+let orbitEnabled = false;
+let audioEnabled = false;
+let rainbowMode = false;
+let panelVisible = true;
+let currentShape = 'heart';
+let currentBg = 'dark';
 let handExpansionFactor = 1.0;
-let audioLevel          = 0;
-let voiceEnabled        = false;
+let audioLevel = 0;
+let voiceEnabled = false;
 
 let scene, camera, renderer;
 let particleGeometry, particlesMaterial, particleSystem;
-let baseColor        = new THREE.Color(0xff0055);
-let targetPositions  = new Float32Array(0);
-let rainbowTmpColor  = new THREE.Color();
+let baseColor = new THREE.Color(0xff0055);
+let targetPositions = new Float32Array(0);
+let rainbowTmpColor = new THREE.Color();
 
 let manualRotY = 0;
 let manualRotX = 0;
