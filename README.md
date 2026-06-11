@@ -1,53 +1,70 @@
-# Welcome to Particle Lab!
+# Particle Lab — Gesture + Voice Controlled Particle Motion
 
-Particle Lab is a fun web experiment where you can play around with floating 3D particles using just your webcam and microphone. You don't need a controller or a keyboard to interact with it—you just use your hands and your voice!
+Particle Lab is a fun web experiment that renders floating **3D particles** using **your webcam and microphone**. You don’t need a keyboard/controller—use **hand gestures** and **voice commands** to change shapes, colors, motion, and more.
 
-## What can you do with it?
+---
 
-1. **Hand Tracking:** We use your webcam to track your hands. 
-    **Left Hand:** Open and close your hand to spread the particles out or bring them closer together.
-    **Right Hand:** Move your wrist around to gently spin the whole scene.
-    **Both Hands:** Pinch with both hands at the same time to reset the camera zoom.
-2. **Voice Commands:** Turn on your mic and try talking to it! You can say things like "galaxy", "red", "more particles", or "zoom in" to change how things look without clicking a button.
-3. **Audio Reactivity:** Turn this on and the particles will actually "listen" and react to the sounds around you, pulsing along to background music or noise.
-4. **A bunch of shapes:** You can arrange the particles into all kinds of cool shapes—like a heart, a flower, a wave, or a floating donut.
+## What you can do
 
-## How to try it out on your computer
+### 1) Hand tracking (Webcam)
+- **Left hand:** open/close to **expand/contract** the particle formation.
+- **Right hand:** move your wrist to **rotate** the scene.
+- **Both hands:** pinch with both hands to **reset zoom**.
 
-Because this project needs to access your webcam and microphone to work, it has to run on a secure server. Don't worry, it's easy to spin one up locally on your computer!
+### 2) Voice commands (Mic + Web Speech API)
+With the mic enabled, try saying commands such as:
+- shapes: `galaxy`, `heart`, `dna`, `cube`, `wave`, `donut`, `bottle`
+- colors: `pink`, `rainbow`, `cyan`, `gold`, `white`
+- movement: `pause`, `slow`, `fast`, `hyper`
+- tweaks: `more particles`, `less particles`, `zoom in`, `explode`, `reset`
 
-**Step 1:** Open your terminal in this project folder.
+### 3) Audio reactivity (Mic + Web Audio)
+Turn on **Audio React** and the particle motion will pulse in response to sound (music/noise).
 
-**Step 2:** Start a quick local server. If you have Python installed, you can just run this command:
-```bash
-python3 -m http.server 3000
-```
-*(If you prefer Node.js, `npx serve` works perfectly too!)*
+### 4) Many shapes
+Switch between multiple presets (e.g., heart, flower, saturn, fireworks, dna, torus, galaxy, pyramid, sphere, wave, mobius, cube, knot, spring, klein, nebula).
 
-**Step 3:** Open up your web browser and go to `http://localhost:3000`.
+---
 
-**Step 4:** The browser will ask for permission to use your camera and microphone. Click **Allow** so the app can see your hands and hear your voice commands.
+## Run it locally
 
-*Pro tip: For the voice commands to work best, we highly recommend using Google Chrome or Microsoft Edge!*
+Because the app needs access to your **camera** and **microphone**, it must be served from a **secure context** (e.g. `https://` or `localhost`).
 
-## Controls & Shortcuts
+1. Open a terminal in this project folder.
+2. Start a local server.
 
-If you prefer to click or use your keyboard, here are some handy shortcuts:
-*   `Tab`: Hide or show the settings menu.
-*   `P`: Take a quick screenshot.
-*   `O`: Turn on mouse/touch drag controls so you can click and spin the camera.
-*   `V`: Turn Voice Commands on or off.
-*   `Scroll Wheel`: Zoom in and out.
+   **Python:**
+   ```bash
+   python3 -m http.server 3000
+   ```
 
-And here are some examples of **voice commands** you can try when the mic is listening:
-*   **Shapes:** "galaxy", "heart", "dna", "cube", "wave", "donut", "bottle"
-*   **Colors:** "pink", "rainbow", "cyan", "gold", "white"
-*   **Movement:** "pause", "slow", "fast", "hyper"
-*   **Tweaks:** "more particles", "less particles", "zoom in", "explode", "reset"
+   **Node.js (alternative):**
+   ```bash
+   npx serve -l 3000
+   ```
 
-## What's powering this?
-If you're curious about the code under the hood, here is what makes it work:
-*   Standard HTML, CSS, and JavaScript.
-*   **Three.js** draws all the 3D particles and handles the graphics.
-*   **MediaPipe** is the machine learning magic that tracks your hand movements.
-*   Built-in browser features (Web Speech API & Web Audio API) handle the voice and sound effects.
+3. Open your browser at:
+   - `http://localhost:3000`
+4. Accept the browser permissions for **camera** and **microphone**.
+
+> Pro tip: voice recognition tends to work best in **Google Chrome** or **Microsoft Edge**.
+
+---
+
+## Controls & shortcuts
+
+- `Tab` — hide/show the settings panel
+- `P` — save a PNG screenshot
+- `O` — toggle mouse/touch orbit controls
+- `V` — toggle Voice Commands on/off
+- `Scroll wheel` — zoom in/out
+
+---
+
+## Tech used
+
+- **Three.js** — 3D rendering of particle points
+- **MediaPipe Hands** — hand landmark detection/gestures
+- **Web Speech API** — speech-to-text voice commands
+- **Web Audio API** — audio analysis for reactivity
+
